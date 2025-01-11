@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+          
+      - name: Dotnet restore
+        run: dotnet restore
+        
+      - name: Build
+        env:
+          DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+          TERM: xterm
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Run
+        continue-on-error: true
+        env:
+          DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: 1
+          TERM: xterm
+        run: |
+            cd BetsBrasileiras
+            dotnet run --configuration Release

@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "BetsBrasileiras": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
