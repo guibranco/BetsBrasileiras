@@ -1,0 +1,38 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "array",
+    "title": "Bets Dataset",
+    "description": "Schema to validate bets.",
+    "items": {
+        "type": "object",
+        "properties": {
+            "requirement_number_year": {
+                "type": "string",
+                "description": "The requirement identifier in the format 'NNNN/YYYY'.",
+                "pattern": "^\\d{4}/\\d{4}$"
+            },
+            "fiscal_name": {
+                "type": "string",
+                "description": "The legal name of the company.",
+                "minLength": 1
+            },
+            "document": {
+                "type": "string",
+                "description": "The CNPJ document number of the company.",
+                "pattern": "^\\d{2}\\.\\d{3}\\.\\d{3}/\\d{4}-\\d{2}$"
+            },
+            "brand": {
+                "type": "string",
+                "description": "The brand name associated with the requirement.",
+                "minLength": 1
+            },
+            "domain": {
+                "type": "string",
+                "description": "The domain name associated with the brand.",
+                "format": "hostname"
+            }
+        },
+        "required": ["requirement_number_year", "fiscal_name", "document", "brand", "domain"],
+        "additionalProperties": false
+    }
+}
