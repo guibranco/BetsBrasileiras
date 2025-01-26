@@ -2,7 +2,7 @@ name: Labeling new issue
 
 on:
   issues:
-      types: ['opened', 'edited']
+    types: ["opened", "edited"]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - uses: Renato66/auto-label@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
