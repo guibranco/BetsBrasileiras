@@ -55,11 +55,33 @@ namespace QuickType
 
     public partial class Bet
     {
+        /// <summary>
+        /// Deserializes a JSON string into an array of Bet objects.
+        /// </summary>
+        /// <param name="json">The JSON string representing an array of Bet objects.</param>
+        /// <returns>An array of <see cref="Bet"/> objects deserialized from the provided JSON string.</returns>
+        /// <remarks>
+        /// This method utilizes the JsonConvert class from the Newtonsoft.Json library to convert a JSON string into an array of Bet objects.
+        /// It expects the input string to be in a valid JSON format that corresponds to the structure of the Bet class.
+        /// If the JSON string is malformed or does not match the expected structure, a JsonSerializationException may be thrown.
+        /// This method is useful for converting data received from a web service or stored in a file into usable C# objects.
+        /// </remarks>
         public static Bet[] FromJson(string json) => JsonConvert.DeserializeObject<Bet[]>(json, QuickType.Converter.Settings);
     }
 
     public static class Serialize
     {
+        /// <summary>
+        /// Converts an array of Bet objects to a JSON string representation.
+        /// </summary>
+        /// <param name="self">An array of Bet objects to be converted to JSON.</param>
+        /// <returns>A JSON string representing the array of Bet objects.</returns>
+        /// <remarks>
+        /// This extension method utilizes the JsonConvert.SerializeObject method from the Newtonsoft.Json library to convert the 
+        /// provided array of Bet objects into a JSON format. The conversion settings are specified by the QuickType.Converter.Settings, 
+        /// which may include custom serialization options such as formatting and handling of null values. This method is useful for 
+        /// serializing data for APIs, storage, or transmission over networks in a standardized format.
+        /// </remarks>
         public static string ToJson(this Bet[] self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
     }
 
@@ -78,8 +100,34 @@ namespace QuickType
 
     internal class MinMaxLengthCheckConverter : JsonConverter
     {
+        /// <summary>
+        /// Determines whether the specified type can be converted to a string.
+        /// </summary>
+        /// <param name="t">The type to check for conversion capability.</param>
+        /// <returns>True if the specified type <paramref name="t"/> can be converted to a string; otherwise, false.</returns>
+        /// <remarks>
+        /// This method overrides a base class method to provide a specific implementation that checks if the given type 
+        /// is exactly a string. It returns true only for the string type and false for all other types. 
+        /// This can be useful in scenarios where type conversion is necessary, such as serialization or data processing,
+        /// ensuring that only valid types are processed for conversion to string.
+        /// </remarks>
         public override bool CanConvert(Type t) => t == typeof(string);
 
+        /// <summary>
+        /// Reads JSON data and deserializes it into a string object.
+        /// </summary>
+        /// <param name="reader">The JSON reader used to read the JSON data.</param>
+        /// <param name="t">The type of the object being deserialized.</param>
+        /// <param name="existingValue">The existing value of the object being deserialized, if any.</param>
+        /// <param name="serializer">The serializer used for deserialization.</param>
+        /// <returns>A string representation of the JSON data if deserialization is successful and the string length is at least 1.</returns>
+        /// <exception cref="Exception">Thrown when the deserialized string is empty or cannot be unmarshaled into a string type.</exception>
+        /// <remarks>
+        /// This method overrides the ReadJson function to provide custom deserialization logic for JSON strings.
+        /// It utilizes the provided JsonSerializer to deserialize the JSON data read by the JsonReader.
+        /// If the resulting string has a length of at least one, it is returned; otherwise, an exception is thrown.
+        /// This ensures that only valid non-empty strings are returned from the deserialization process.
+        /// </remarks>
         public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
         {
             var value = serializer.Deserialize<string>(reader);
@@ -90,6 +138,19 @@ namespace QuickType
             throw new Exception("Cannot unmarshal type string");
         }
 
+        /// <summary>
+        /// Writes a JSON representation of a string value to the specified JsonWriter.
+        /// </summary>
+        /// <param name="writer">The JsonWriter to which the string value will be written.</param>
+        /// <param name="untypedValue">The object value to be serialized, expected to be a string.</param>
+        /// <param name="serializer">The JsonSerializer used for serialization.</param>
+        /// <remarks>
+        /// This method checks if the provided <paramref name="untypedValue"/> is a non-empty string before attempting to serialize it.
+        /// If the string has a length of at least one, it uses the provided <paramref name="serializer"/> to write the string to the <paramref name="writer"/>.
+        /// If the string is empty or null, an exception is thrown indicating that the type cannot be marshaled.
+        /// This method is typically used in scenarios where custom serialization logic is required for string values.
+        /// </remarks>
+        /// <exception cref="Exception">Thrown when the <paramref name="untypedValue"/> is not a valid string or is empty.</exception>
         public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
         {
             var value = (string)untypedValue;
