@@ -14,9 +14,9 @@
     <license type="expression">MIT</license>
     <description>A JSON list of brazilian authorized bets.</description>
     <copyright>© 2025 Guilherme Branco Stracini. All rights reserved.</copyright>
-    <tags>bets,brazilian,authorized,list,json,xml,sql,csv,cnpj,markdown</tags>
+    <tags>bets,brazilian,authorized,list,cnpj,json,xml,sql,csv,markdown</tags>
     <dependencies>
-      <dependency id="System.Text.Json" version="9.0.1" />
+      <dependency id="Newtonsoft.Json" version="13.0.1" />
     </dependencies>
     <contentFiles>
       <files include="any/any/bets.cs" buildAction="compile" copyToOutput="false" />
@@ -24,9 +24,9 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="schemas\csharp.cs" target="contentFiles\any\any\bets.cs" />
-    <file src="data\bets.json" target="contentFiles\any\any\bets.json" />
-    <file src="logo.png" />
-    <file src="README.md" target="README.md" />    
+    <file src="..\schemas\csharp.cs" target="contentFiles\any\any\bets.cs" />
+    <file src="..\data\bets.json" target="contentFiles\any\any\bets.json" />
+    <file src="..\logo.png" />
+    <file src="..\README.md" target="README.md" />    
   </files>
 </package>
