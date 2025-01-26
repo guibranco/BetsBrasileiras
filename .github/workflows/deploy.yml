@@ -33,6 +33,9 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
+      - name: Dotnet restore
+        run: dotnet restore
+
       - name: Pack
         run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
 
