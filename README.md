@@ -50,23 +50,24 @@ The list is updated regularly via an automated tool that fetches the latest gove
 Here’s an example of what the data looks like:
 
 ### JSON Format:
+
 ```json
 {
-  "number": "12345",
-  "year": "2025",
-  "company_name": "BetCompany XYZ",
-  "cnpj": "12.345.678/0001-90",
+  "requirement_number_year": "12345/2025",
+  "fiscal_name": "BetCompany XYZ",
+  "document": "12.345.678/0001-90",
   "brand": "BrandOne",
   "domain": "www.brandone.com"
 }
 ```
 
 ### CSV Format:
+
 ```csv
-Number, Year, Company Name, CNPJ, Brand Name, Domain
-12345, 2025, BetCompany XYZ, 12.345.678/0001-90, BrandOne, www.brandone.com
-12345, 2025, BetCompany XYZ, 12.345.678/0001-90, BrandTwo, www.brandtwo.com
-12345, 2025, BetCompany XYZ, 12.345.678/0001-90, BrandTwo, www.brandtwo-br.com
+Requirement Number/Year, Fiscal Name, Document, Brand, Domain
+12345/2025, BetCompany XYZ, 12.345.678/0001-90, BrandOne, www.brandone.com
+12345/2025, BetCompany XYZ, 12.345.678/0001-90, BrandTwo, www.brandtwo.com
+12345/2025, BetCompany XYZ, 12.345.678/0001-90, BrandTwo, www.brandtwo-br.com
 ```
 
 ## 🤝 Contributing
