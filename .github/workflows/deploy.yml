@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     outputs:
       fullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}
 
