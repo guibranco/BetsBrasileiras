@@ -36,8 +36,11 @@ jobs:
       - name: Dotnet restore
         run: dotnet restore
 
+      - name: Bump NuGet version
+        run:  sed -i "s|<version>.*</version>|<version>${{ env.fullSemVer }}</version>|" BetsBrasileiras/BetsBrasileiras.nuspec
+
       - name: Pack
-        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
+        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-restore --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
 
       - name: Push to NuGet
         run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
