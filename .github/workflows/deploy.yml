@@ -59,7 +59,7 @@ jobs:
           cp data/bets.json dist/
       
       - name: Bump NPM version
-        run: npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
+        run: git stash && npm version ${{ env.fullSemVer }}
       
       - name: Push to NPM
         run: cd dist && npm publish --provenance --access public
