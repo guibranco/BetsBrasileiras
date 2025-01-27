@@ -1,6 +1,6 @@
-﻿namespace BetsBrasileiras.Helpers;
+﻿using System;
 
-using System;
+namespace BetsBrasileiras.Helpers;
 
 /// <summary>
 /// Class Helpers.
