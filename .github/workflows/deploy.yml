@@ -37,7 +37,7 @@ jobs:
         run: dotnet restore
 
       - name: Pack
-        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
+        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-restore --no-build -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
 
       - name: Push to NuGet
         run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
