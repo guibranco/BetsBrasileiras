@@ -57,7 +57,10 @@ jobs:
           copy README.md dist\
           copy package.json dist\
           copy data\bets.json dist\
-
+      
+      - name: Bump NPM version
+        run: npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
+      
       - name: Push to NPM
         run: cd dist && npm publish --provenance --access public
         env:
