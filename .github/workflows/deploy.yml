@@ -39,20 +39,29 @@ jobs:
       - name: Pack
         run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
 
-      # - name: Rename nupkg
-      #   run: mv ./nupkg/BetsBrasileiras.1.0.0.nupkg ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg
+      - name: Rename nupkg
+        run: mv ./nupkg/BetsBrasileiras.1.0.0.nupkg ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg
 
-      # - name: Push to NuGet
-      #   run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      - name: Push to NuGet
+        run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
-      # - uses: actions/setup-node@v4
-      #   with:
-      #     node-version: '22'
-      #     registry-url: 'https://registry.npmjs.org'
+      - name: Setup NodeJS
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
 
-      # - run: npm publish --provenance --access public
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
+      - name: Generaet Dist
+        run: |
+          mkdir -p dist
+          copy README.md dist\
+          copy package.json dist\
+          copy data\bets.json dist\
+
+      - name: Push to NPM
+        run: cd dist && npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
 
   create_release:
     name: Create release
