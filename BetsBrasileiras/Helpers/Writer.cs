@@ -80,7 +80,7 @@ internal static class Writer
 
         lines.AddRange(
             bets.Select(bet =>
-                $"{bet.ApplicationNumber:000},{bet.ApplicationYear:0000},{bet.Document},{bet.Name.Replace(",", "")},{bet.Brand},{bet.Domain},{bet.DateRegistered:O},{bet.DateUpdated:O}"
+                $"{bet.ApplicationNumber:000},{bet.ApplicationYear:0000},{bet.Document},{bet.FiscalName.Replace(",", "")},{bet.Brand},{bet.Domain},{bet.DateRegistered:O},{bet.DateUpdated:O}"
             )
         );
 
@@ -103,7 +103,7 @@ internal static class Writer
 
         lines.AddRange(
             bets.Select(bet =>
-                $"{bet.ApplicationNumber:000} | {bet.ApplicationYear:0000} | {bet.Document} | {bet.Name.Replace(",", "")} | {bet.Brand} | {bet.Domain} | {bet.DateRegistered:O} | {bet.DateUpdated:O}"
+                $"{bet.ApplicationNumber:000} | {bet.ApplicationYear:0000} | {bet.Document} | {bet.FiscalName.Replace(",", "")} | {bet.Brand} | {bet.Domain} | {bet.DateRegistered:O} | {bet.DateUpdated:O}"
             )
         );
 
@@ -121,7 +121,7 @@ internal static class Writer
         var prefix = $"INSERT INTO Bets ({string.Join(",", GetFieldsJsonPropertyNames)}) VALUES(";
         lines.AddRange(
             bets.Select(bet =>
-                $"{prefix}'{bet.ApplicationNumber:000}','{bet.ApplicationYear:0000}','{bet.Document}','{bet.Name.Replace("'", "''")}',{(string.IsNullOrWhiteSpace(bet.Brand) ? "NULL" : $"'{bet.Brand}'")},{(string.IsNullOrWhiteSpace(bet.Domain) ? "NULL" : $"'{bet.Domain}'")},'{bet.DateRegistered:O}','{bet.DateUpdated:O}');"
+                $"{prefix}'{bet.ApplicationNumber:000}','{bet.ApplicationYear:0000}','{bet.Document}','{bet.FiscalName.Replace("'", "''")}',{(string.IsNullOrWhiteSpace(bet.Brand) ? "NULL" : $"'{bet.Brand}'")},{(string.IsNullOrWhiteSpace(bet.Domain) ? "NULL" : $"'{bet.Domain}'")},'{bet.DateRegistered:O}','{bet.DateUpdated:O}');"
             )
         );
 

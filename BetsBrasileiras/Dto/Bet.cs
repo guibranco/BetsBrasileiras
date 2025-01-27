@@ -108,13 +108,13 @@ public class Bet
     }
 
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets or sets the fiscal name.
     /// </summary>
-    /// <value>The name.</value>
-    [JsonProperty("Name")]
-    [XmlElement("Name")]
-    [Display(Name = "Name")]
-    public string Name { get; set; }
+    /// <value>The fiscal name.</value>
+    [JsonProperty("FiscalName")]
+    [XmlElement("FiscalName")]
+    [Display(Name = "FiscalName")]
+    public string FiscalName { get; set; }
 
     /// <summary>
     /// Gets or sets the brand.
