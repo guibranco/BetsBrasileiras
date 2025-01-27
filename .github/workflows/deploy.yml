@@ -50,7 +50,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     permissions:
-      contents: read
+      contents: write
       packages: write
     env:
       fullSemVer: ${{ needs.build.outputs.fullSemVer }}
