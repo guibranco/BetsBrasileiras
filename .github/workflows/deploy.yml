@@ -54,9 +54,9 @@ jobs:
       - name: Generate Dist
         run: |
           mkdir -p dist
-          cp README.md dist\
-          cp package.json dist\
-          cp data\bets.json dist\
+          cp README.md dist/
+          cp package.json dist/
+          cp data/bets.json dist/
       
       - name: Bump NPM version
         run: npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
