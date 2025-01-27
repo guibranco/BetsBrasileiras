@@ -39,11 +39,11 @@ jobs:
       - name: Pack
         run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
 
-      - name: Rename nupkg
-        run: mv ./nupkg/BetsBrasileiras.1.0.0.nupkg ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg
+      # - name: Rename nupkg
+      #   run: mv ./nupkg/BetsBrasileiras.1.0.0.nupkg ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg
 
-      - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
+      # - name: Push to NuGet
+      #   run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
   create_release:
     name: Create release
