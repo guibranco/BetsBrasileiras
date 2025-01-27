@@ -1,0 +1,25 @@
+{
+  "name": "bets-brasileiras",
+  "version": "1.0.0",
+  "description": "A JSON list of Brazilian (authorized) bets companies",
+  "main": "bets.json",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guibranco/BetsBrasileiras.git"
+  },
+  "keywords": [
+    "bets",
+    "brazilian",
+    "list",
+    "authorized"
+  ],
+  "author": "Guilherme Branco Stracini",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/guibranco/BetsBrasileiras/issues"
+  },
+  "homepage": "https://guibranco.github.io/BetsBrasileiras/"
+}
