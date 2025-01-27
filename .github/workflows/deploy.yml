@@ -57,6 +57,8 @@ jobs:
           cp README.md dist/
           cp package.json dist/
           cp data/bets.json dist/
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
       
       - name: Bump NPM version
         run: git stash && npm version ${{ env.fullSemVer }}
