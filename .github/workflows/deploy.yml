@@ -51,7 +51,7 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Generaet Dist
+      - name: Generate Dist
         run: |
           mkdir -p dist
           cp README.md dist\
