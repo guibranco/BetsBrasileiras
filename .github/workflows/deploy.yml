@@ -54,9 +54,9 @@ jobs:
       - name: Generaet Dist
         run: |
           mkdir -p dist
-          copy README.md dist\
-          copy package.json dist\
-          copy data\bets.json dist\
+          cp README.md dist\
+          cp package.json dist\
+          cp data\bets.json dist\
       
       - name: Bump NPM version
         run: npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
