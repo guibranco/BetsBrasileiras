@@ -45,6 +45,15 @@ jobs:
       # - name: Push to NuGet
       #   run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json
 
+      # - uses: actions/setup-node@v4
+      #   with:
+      #     node-version: '22'
+      #     registry-url: 'https://registry.npmjs.org'
+
+      # - run: npm publish --provenance --access public
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
+
   create_release:
     name: Create release
     runs-on: ubuntu-latest
