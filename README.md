@@ -87,4 +87,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🌍 Links
 
 - [Official Government List of Authorized Bets](https://www.gov.br/fazenda/pt-br/composicao/orgaos/secretaria-de-premios-e-apostas/lista-de-empresas)
-- [Bets Brasileiras Documentation](https://github.com/guibranco/BetsBrasileiras)
+- [Bets Brasileiras Documentation](http://guilherme.stracini.com.br/BetsBrasileiras/)
