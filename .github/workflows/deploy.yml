@@ -61,7 +61,7 @@ jobs:
           git config --global user.name "GitHub Actions"
       
       - name: Bump NPM version
-        run: git stash && npm version ${{ env.fullSemVer }}
+        run: git stash && npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
       
       - name: Push to NPM
         run: cd dist && npm publish --provenance --access public
