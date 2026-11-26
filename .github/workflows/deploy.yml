@@ -13,7 +13,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
+      contents: read
+      id-token: write # required for NuGet Trusted Publishing (OIDC) and npm provenance
     outputs:
       fullSemVer: ${{ steps.gitversion.outputs.fullSemVer }}
 
@@ -32,6 +33,9 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v5.0.0
 
+      - name: Export version
+        run: echo "fullSemVer=${{ steps.gitversion.outputs.fullSemVer }}" >> "$GITHUB_ENV"
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v6
         with:
@@ -40,14 +44,23 @@ jobs:
       - name: Dotnet restore
         run: dotnet restore
 
+      - name: Build
+        run: dotnet build BetsBrasileiras/BetsBrasileiras.csproj --configuration Release --no-restore
+
       - name: Bump NuGet version
         run:  sed -i "s|<version>.*</version>|<version>${{ env.fullSemVer }}</version>|" BetsBrasileiras/BetsBrasileiras.nuspec
 
       - name: Pack
-        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --no-restore --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
+        run: dotnet pack BetsBrasileiras/BetsBrasileiras.csproj --configuration Release --no-restore --no-build -p:NuspecFile=BetsBrasileiras.nuspec -p:PackageVersion=${{ env.fullSemVer }} -p:PackageOutputPath=../nupkg
+
+      - name: NuGet login (OIDC)
+        id: nuget-login
+        uses: NuGet/login@v1
+        with:
+          user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
+        run: dotnet nuget push ./nupkg/BetsBrasileiras.${{ env.fullSemVer }}.nupkg --api-key ${{ steps.nuget-login.outputs.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
 
       - name: Setup NodeJS
         uses: actions/setup-node@v7
