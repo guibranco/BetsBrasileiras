@@ -65,8 +65,11 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v7
         with:
-          node-version: '22'
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
+
+      - name: Update npm (Trusted Publishing needs npm >= 11.5.1)
+        run: npm install -g npm@latest
 
       - name: Generate Dist
         run: |
@@ -74,16 +77,14 @@ jobs:
           cp README.md dist/
           cp package.json dist/
           cp data/bets.json dist/
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-      
+
       - name: Bump NPM version
-        run: git stash && npm version ${{ env.fullSemVer }} -m 'v${{ env.fullSemVer }}'
-      
-      - name: Push to NPM
-        run: cd dist && npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_API_KEY }}
+        working-directory: dist
+        run: npm version ${{ env.fullSemVer }} --no-git-tag-version --allow-same-version
+
+      - name: Push to NPM (OIDC)
+        working-directory: dist
+        run: npm publish --provenance --access public
 
   create_release:
     name: Create release
